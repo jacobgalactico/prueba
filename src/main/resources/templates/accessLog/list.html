@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{accessLog.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{accessLog.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/accessLogs/add}" class="btn btn-primary ms-2">[[#{accessLog.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${accessLogs.empty}">[[#{accessLog.list.empty}]]</div>
+            <div th:if="${!accessLogs.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{accessLog.id.label}]]</th>
+                            <th scope="col">[[#{accessLog.accessTime.label}]]</th>
+                            <th scope="col">[[#{accessLog.isSuccessful.label}]]</th>
+                            <th scope="col">[[#{accessLog.details.label}]]</th>
+                            <th scope="col">[[#{accessLog.user.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="accessLog : ${accessLogs}">
+                            <td>[[${accessLog.id}]]</td>
+                            <td>[[${accessLog.accessTime}]]</td>
+                            <td>[[${accessLog.isSuccessful}]]</td>
+                            <td>[[${accessLog.details}]]</td>
+                            <td>[[${accessLog.user}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/accessLogs/edit/{id}(id=${accessLog.id})}" class="btn btn-sm btn-secondary">[[#{accessLog.list.edit}]]</a>
+                                    <form th:action="@{/accessLogs/delete/{id}(id=${accessLog.id})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{accessLog.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

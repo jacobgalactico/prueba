@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{accessLog.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{accessLog.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/accessLogs}" class="btn btn-secondary">[[#{accessLog.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('accessLog')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='accessLog', field='id', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='accessLog', field='accessTime', required=true, inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='accessLog', field='isSuccessful', type='checkbox')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='accessLog', field='details', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='accessLog', field='user', type='select')}" />
+                <input type="submit" th:value="#{accessLog.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
