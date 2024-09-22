@@ -54,7 +54,7 @@ mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=grupo1/caso-pra
 ```
 
 ## Further readings
-
+Link to bootify: https://bootify.io/app/6HL18E2R8DX8
 * [Maven docs](https://maven.apache.org/guides/index.html)  
 * [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
 * [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/reference/jpa.html)
