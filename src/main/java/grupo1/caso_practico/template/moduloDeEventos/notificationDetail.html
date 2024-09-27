@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/default :: layout">
+<body>
+<div th:fragment="content">
+    <h2>Notification Details</h2>
+    <p>ID: <span th:text="${notification.id}">456</span></p>
+    <p>Message: <span th:text="${notification.message}">System rebooted</span></p>
+    <p>Date: <span th:text="${notification.date}">2024-01-24</span></p>
+</div>
+</body>
+</html>

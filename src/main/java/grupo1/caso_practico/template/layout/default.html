@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Stark Industries Security System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="layout/header :: headerContent"></header>
+<nav th:replace="layout/navbar :: navbarContent"></nav>
+<div class="container">
+    <div th:fragment="content">
+        <!-- Contenido dinámico aquí -->
+    </div>
+</div>
+<footer th:replace="layout/footer :: footerContent"></footer>
+</body>
+</html>
