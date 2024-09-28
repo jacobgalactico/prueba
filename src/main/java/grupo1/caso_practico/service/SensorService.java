@@ -8,15 +8,18 @@ import grupo1.caso_practico.repos.SensorRepository;
 import grupo1.caso_practico.util.NotFoundException;
 import grupo1.caso_practico.util.ReferencedWarning;
 import java.util.List;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import ch.qos.logback.classic.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Service
 public class SensorService {
 
+    private final Logger logger = LoggerFactory.getLogger(SensorService.class);
     private final SensorRepository sensorRepository;
     private final EventRepository eventRepository;
 
@@ -64,7 +67,7 @@ public class SensorService {
 
     public void delete(final Long id) {
         logger.info("Deleting sensor with id {}", id);
-        if(sensorRepository.deleteById(id)){
+        if(!sensorRepository.existsById(id)){
             logger.error("Sensor not found with id: {}", id); 
             throw new NotFoundException();
         }

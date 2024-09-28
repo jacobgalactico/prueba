@@ -1,25 +1,32 @@
 package grupo1.caso_practico.domain;
 
+
 import grupo1.caso_practico.model.SensorStatus;
 import grupo1.caso_practico.model.SensorType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 
 @Entity
 @Table(name = "Sensors")
@@ -65,16 +72,13 @@ public class Sensor {
 
 
     public void addEvent(Event event){
-        this.event.add(event);
+        this.events.add(event);
         event.setSensor(this);
     }
 
 
     public void removeEvent(Event event){
-        this.event.remove(event);
-        events.setSensor(null);
+        this.events.remove(event);
+        event.setSensor(null);
         }
-
-
-
 }
