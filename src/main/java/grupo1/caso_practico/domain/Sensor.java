@@ -34,6 +34,8 @@ public class Sensor {
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
+    @Size(min = 3, max = 100)
     private String name;
 
     @Column(nullable = false)
@@ -41,14 +43,16 @@ public class Sensor {
     private SensorType type;
 
     @Column(nullable = false)
+    @NotNull
     private String location;
 
     @Column(nullable = false)
+    @NotNull
     @Enumerated(EnumType.STRING)
     private SensorStatus status;
 
-    @OneToMany(mappedBy = "sensor")
-    private Set<Event> event;
+    @OneToMany(mappedBy = "sensor", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Event> events = new HashSet<>();    //Inicializamos el set para evitar un nullpointer mas adelante
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -57,5 +61,20 @@ public class Sensor {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
+
+
+
+    public void addEvent(Event event){
+        this.event.add(event);
+        event.setSensor(this);
+    }
+
+
+    public void removeEvent(Event event){
+        this.event.remove(event);
+        events.setSensor(null);
+        }
+
+
 
 }
