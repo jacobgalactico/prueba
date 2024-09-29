@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import java.time.OffsetDateTime;
 import java.util.Set;
 import lombok.Getter;
@@ -58,5 +59,6 @@ public class User {
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
+
 
 }
