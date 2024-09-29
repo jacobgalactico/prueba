@@ -21,7 +21,26 @@ public class MotionSensorService extends SensorService {
       this.lastDetectionTime = null;
   }
 
-
+  public void startMonitoring(){
+    logger.info("Iniciando la monitorizacion del sensor de movimiento");
+    monitorSensor();
+  }
+  public void stopMonitoring(){
+    logger.info("Deteniendo la monitorizacion del sensor de movimiento");
+    monitorSensor();
+  }
+  
+  public String getSensorStatus(){
+    if(motionDetected){
+      return "Movimiento fue detectado por ultima vez en: " + lastDetectionTime;
+    } else {
+      return "El sensor esta en espera, no se ha detectado nada recientemente";
+    }
+  }
+  
+  public LocalDateTime getlastDetectionTime(){
+    return lastDetectionTime;
+  }
 
   public boolean detectMotion(){
     logger.debug("Verificando si hay movimiento...");
@@ -41,7 +60,7 @@ public class MotionSensorService extends SensorService {
     return Math.random() > 0.5;
   }
 
-  private void motionSensor(){
+  private void monitorSensor(){
     for (int i = 0; i < 5; i++) {
       detectMotion();
       try{
