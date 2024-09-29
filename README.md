@@ -66,4 +66,4 @@ Enlaces útiles para el proyecto:
 
 ---
 
-Este README incluye las instrucciones generales sobre cómo configurar, desarrollar, y desplegar el proyecto. Si necesitas agregar más información específica del proyecto, házmelo saber.
+
