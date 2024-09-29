@@ -4,15 +4,25 @@ import grupo1.caso_practico.domain.Event;
 import grupo1.caso_practico.domain.Notification;
 import grupo1.caso_practico.domain.Sensor;
 import grupo1.caso_practico.model.EventDTO;
+import grupo1.caso_practico.model.EventType;
 import grupo1.caso_practico.repos.EventRepository;
 import grupo1.caso_practico.repos.NotificationRepository;
 import grupo1.caso_practico.repos.SensorRepository;
 import grupo1.caso_practico.util.NotFoundException;
 import grupo1.caso_practico.util.ReferencedWarning;
-import java.util.List;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import grupo1.caso_practico.model.SensorType;
+import grupo1.caso_practico.model.EventType;
+
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Random;
+
+import static grupo1.caso_practico.model.EventType.MOTION;
 
 @Service
 public class EventService {
@@ -22,8 +32,8 @@ public class EventService {
     private final NotificationRepository notificationRepository;
 
     public EventService(final EventRepository eventRepository,
-            final SensorRepository sensorRepository,
-            final NotificationRepository notificationRepository) {
+                        final SensorRepository sensorRepository,
+                        final NotificationRepository notificationRepository) {
         this.eventRepository = eventRepository;
         this.sensorRepository = sensorRepository;
         this.notificationRepository = notificationRepository;
@@ -89,6 +99,43 @@ public class EventService {
             return referencedWarning;
         }
         return null;
+    }
+
+    // Lógica para generar eventos aleatorios cada 30 segundos
+    @Scheduled(fixedRate = 30000)  // Ejecuta cada 30 segundos
+    public void generateRandomEvent() {
+        List<Sensor> sensors = sensorRepository.findAll();
+        if (!sensors.isEmpty()) {
+            // Selecciona un sensor aleatorio
+            Sensor sensor = sensors.get(new Random().nextInt(sensors.size()));
+
+            // Crea un nuevo evento para el sensor seleccionado
+            Event event = new Event();
+            event.setSensor(sensor);
+            event.setTime(LocalDateTime.now());
+
+            // Define el tipo de evento según el tipo de sensor
+            // Define el tipo de evento según el tipo de sensor
+            switch (sensor.getType()) {
+                case MOTION:
+                    event.setEventType(EventType.INTRUSION);  // Cambiado a EventType.INTRUSION_DETECTED
+                    event.setDetails("Movimiento detectado en " + sensor.getLocation());
+                    break;
+                case TEMPERATURE:
+                    event.setEventType(EventType.TEMPERATURE_CHANGE);  // Cambiado a EventType.TEMPERATURE_RISE
+                    event.setDetails("Aumento de temperatura en " + sensor.getLocation());
+                    break;
+                case ACCESS:
+                    event.setEventType(EventType.ACCESS_DENIED);  // Cambiado a EventType.UNAUTHORIZED_ACCESS
+                    event.setDetails("Acceso no autorizado en " + sensor.getLocation());
+                    break;
+            }
+
+
+            // Guarda el evento en la base de datos
+            eventRepository.save(event);
+            System.out.println("Evento generado: " + event.getEventType() + " en " + sensor.getLocation());
+        }
     }
 
 }
