@@ -51,14 +51,6 @@ Si es necesario, se puede crear una imagen de Docker con el plugin de Spring Boo
 ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=grupo1/caso-practico
 ```
 
-## Tabla de Eventos Procesados por Tipo de Sensor
-
-| Tipo de Sensor | Eventos Procesados | Tasa de Procesamiento (eventos/segundo) | Porcentaje de Errores |
-|----------------|--------------------|-----------------------------------------|-----------------------|
-| Movimiento     | 350                | 25                                      | 0.20                  |
-| Temperatura    | 220                | 18                                      | 0.10                  |
-| Acceso         | 420                | 30                                      | 0.15                  |
-
 
 ## Lecturas adicionales
 
