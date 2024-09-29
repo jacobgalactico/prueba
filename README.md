@@ -3,68 +3,26 @@ Proyecto realizado por: Patrik Paul Sirbu, Jacob Altenburger Villar y Pedro Alon
 Fecha de entrega: 29/09/2024
 -------------------
 Link al repositorio: https://github.com/jacobgalactico/prueba.git
-# CasoPráctico
 
-Esta aplicación fue creada con Bootify.io - consejos sobre cómo trabajar con el código [pueden encontrarse aquí](https://bootify.io/next-steps/).
+Sistema de Seguridad Stark Industries
 
-## Desarrollo
-
-Al iniciar la aplicación, se ejecuta `docker compose up` y la aplicación se conectará a los servicios incluidos. [Docker](https://www.docker.com/get-started/) debe estar disponible en el sistema actual.
-
-Durante el desarrollo, se recomienda usar el perfil `local`. En IntelliJ, puedes agregar `-Dspring.profiles.active=local` en las opciones de VM de la configuración de ejecución después de habilitar esta propiedad en "Modificar opciones". Crea tu propio archivo `application-local.yml` para sobrescribir configuraciones durante el desarrollo.
-
-El IDE debe soportar Lombok. Para IntelliJ, instala el plugin de Lombok y habilita el procesamiento de anotaciones - [aprende más aquí](https://bootify.io/next-steps/spring-boot-with-lombok.html).
-
-Además de la aplicación de Spring Boot, también debe iniciarse el DevServer - para esto se requiere la versión 20 de [Node.js](https://nodejs.org/). Al primer uso y después de actualizaciones, es necesario instalar las dependencias:
-
-```
-npm install
-```
-
-El DevServer puede iniciarse de la siguiente manera:
-
-```
-npm run devserver
-```
-
-Usando un proxy, toda la aplicación es accesible ahora en `localhost:8081`. Todos los cambios en las plantillas y archivos JS/CSS son inmediatamente visibles en el navegador.
-
-## Compilación
-
-La aplicación puede construirse usando el siguiente comando:
-
-```
-./mvnw clean package
-```
-
-Node.js se descarga automáticamente utilizando el `frontend-maven-plugin` y los archivos finales JS/CSS se integran en el archivo JAR.
-
-Inicia tu aplicación con el siguiente comando, aquí con el perfil `production`:
-
-```
-java -Dspring.profiles.active=production -jar ./target/caso-practico-0.0.1-SNAPSHOT.jar
-```
-
-Si es necesario, se puede crear una imagen de Docker con el plugin de Spring Boot. Agrega `SPRING_PROFILES_ACTIVE=production` como una variable de entorno al ejecutar el contenedor.
-
-```
-./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=grupo1/caso-practico
-```
-
-
-## Lecturas adicionales
-
-Enlaces útiles para el proyecto:
-
-- [Maven docs](https://maven.apache.org/guides/index.html)
-- [Referencia de Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
-- [Referencia de Spring Data JPA](https://docs.spring.io/spring-data/jpa/reference/jpa.html)
-- [Documentación de Thymeleaf](https://www.thymeleaf.org/documentation.html)
-- [Conceptos de Webpack](https://webpack.js.org/concepts/)
-- [Documentación de npm](https://docs.npmjs.com/)
-- [Documentación de Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
-- [Aprender Spring Boot con Thymeleaf](https://www.wimdeblauwe.com/books/taming-thymeleaf/)
-
----
-
-
+Descripción:
+Stark Industries está desarrollando un sistema de seguridad avanzado para su nueva sede en Nueva York. El sistema debe gestionar múltiples sensores en tiempo real y garantizar la máxima eficiencia y capacidad de respuesta ante cualquier amenaza. Este proyecto, basado en Spring Framework, implementa un sistema concurrente que integra y gestiona diferentes tipos de sensores (movimiento, temperatura, acceso) con alta eficiencia y fiabilidad en la detección y respuesta a eventos.
+Funcionalidades
+1.	Gestión de Sensores:
+o	Permite gestionar sensores de diferentes tipos: acceso, movimiento y temperatura.
+o	Los sensores pueden ser añadidos, eliminados y actualizados a través de una interfaz web.
+o	Cada sensor tiene un estado: activo, desactivado, o en error.
+2.	Control de Acceso:
+o	La aplicación implementa un sistema de autenticación para el acceso de usuarios a las diferentes funcionalidades.
+o	Basado en Spring Security, se define una capa de autorización para gestionar roles y permisos de acceso.
+3.	Notificaciones:
+o	Permite la creación y gestión de notificaciones en el sistema, las cuales son visibles en la interfaz web.
+4.	Eventos:
+o	El sistema registra eventos relacionados con los sensores (ej. intrusiones, cambios de temperatura o accesos no autorizados).
+o	Los eventos pueden ser creados manualmente desde la interfaz de administración.
+5.	Concurrencia:
+o	Se usa @Async y ExecutorService para manejar el procesamiento concurrente de datos de los sensores y eventos.
+6.	Monitorización y Logs:
+o	A través de Spring Actuator, se permite monitorizar el estado del sistema.
+o	Se implementa un sistema de logging para rastrear eventos y posibles errores en tiempo real. Hemos configurado dos usuarios ( admin y contraseña admin) y (user y contraseña user)
