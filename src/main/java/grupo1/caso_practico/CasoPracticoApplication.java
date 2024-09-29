@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CasoPracticoApplication {
 
     public static void main(final String[] args) {
+        // Corremos la aplicación
         SpringApplication.run(CasoPracticoApplication.class, args);
     }
 

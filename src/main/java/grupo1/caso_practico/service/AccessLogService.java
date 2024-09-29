@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccessLogService {
-
+ // Sirve para guardar los registros de acceso de los usuarios
     private final AccessLogRepository accessLogRepository;
     private final UserRepository userRepository;
 
