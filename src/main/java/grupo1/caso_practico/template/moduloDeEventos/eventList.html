@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout/default :: layout">
+<body>
+<div th:fragment="content">
+    <h2>List of Events</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Date</th>
+        </tr>
+        <tr th:each="event : ${events}">
+            <td th:text="${event.id}">123</td>
+            <td th:text="${event.description}">Unauthorized access</td>
+            <td th:text="${event.date}">2024-01-23</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
