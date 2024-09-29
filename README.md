@@ -1,65 +1,69 @@
-# CasoPractico
+Proyecto realizado por: Patrik Paul Sirbu, Jacob Altenburger Villar y Pedro Alonso Tapia Lobo
+-------------------
+Fecha de entrega: 29/09/2024
+-------------------
+Link al repositorio: 
+# CasoPráctico
 
-This app was created with Bootify.io - tips on working with the code [can be found here](https://bootify.io/next-steps/).
+Esta aplicación fue creada con Bootify.io - consejos sobre cómo trabajar con el código [pueden encontrarse aquí](https://bootify.io/next-steps/).
 
-## Development
+## Desarrollo
 
-When starting the application `docker compose up` is called and the app will connect to the contained services.
-[Docker](https://www.docker.com/get-started/) must be available on the current system.
+Al iniciar la aplicación, se ejecuta `docker compose up` y la aplicación se conectará a los servicios incluidos. [Docker](https://www.docker.com/get-started/) debe estar disponible en el sistema actual.
 
-During development it is recommended to use the profile `local`. In IntelliJ `-Dspring.profiles.active=local` can be
-added in the VM options of the Run Configuration after enabling this property in "Modify options". Create your own
-`application-local.yml` file to override settings for development.
+Durante el desarrollo, se recomienda usar el perfil `local`. En IntelliJ, puedes agregar `-Dspring.profiles.active=local` en las opciones de VM de la configuración de ejecución después de habilitar esta propiedad en "Modificar opciones". Crea tu propio archivo `application-local.yml` para sobrescribir configuraciones durante el desarrollo.
 
-Lombok must be supported by your IDE. For IntelliJ install the Lombok plugin and enable annotation processing -
-[learn more](https://bootify.io/next-steps/spring-boot-with-lombok.html).
+El IDE debe soportar Lombok. Para IntelliJ, instala el plugin de Lombok y habilita el procesamiento de anotaciones - [aprende más aquí](https://bootify.io/next-steps/spring-boot-with-lombok.html).
 
-In addition to the Spring Boot application, the DevServer must also be started - for this
-[Node.js](https://nodejs.org/) version 20 is required. On first usage and after updates the dependencies have to be installed:
+Además de la aplicación de Spring Boot, también debe iniciarse el DevServer - para esto se requiere la versión 20 de [Node.js](https://nodejs.org/). Al primer uso y después de actualizaciones, es necesario instalar las dependencias:
 
 ```
 npm install
 ```
 
-The DevServer can be started as follows:
+El DevServer puede iniciarse de la siguiente manera:
 
 ```
 npm run devserver
 ```
 
-Using a proxy the whole application is now accessible under `localhost:8081`. All changes to the templates and JS/CSS
-files are immediately visible in the browser.
+Usando un proxy, toda la aplicación es accesible ahora en `localhost:8081`. Todos los cambios en las plantillas y archivos JS/CSS son inmediatamente visibles en el navegador.
 
-## Build
+## Compilación
 
-The application can be built using the following command:
+La aplicación puede construirse usando el siguiente comando:
 
 ```
-mvnw clean package
+./mvnw clean package
 ```
 
-Node.js is automatically downloaded using the `frontend-maven-plugin` and the final JS/CSS files are integrated into the jar.
+Node.js se descarga automáticamente utilizando el `frontend-maven-plugin` y los archivos finales JS/CSS se integran en el archivo JAR.
 
-Start your application with the following command - here with the profile `production`:
+Inicia tu aplicación con el siguiente comando, aquí con el perfil `production`:
 
 ```
 java -Dspring.profiles.active=production -jar ./target/caso-practico-0.0.1-SNAPSHOT.jar
 ```
 
-If required, a Docker image can be created with the Spring Boot plugin. Add `SPRING_PROFILES_ACTIVE=production` as
-environment variable when running the container.
+Si es necesario, se puede crear una imagen de Docker con el plugin de Spring Boot. Agrega `SPRING_PROFILES_ACTIVE=production` como una variable de entorno al ejecutar el contenedor.
 
 ```
-mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=grupo1/caso-practico
+./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=grupo1/caso-practico
 ```
 
-## Further readings
-Link to bootify: https://bootify.io/app/6HL18E2R8DX8
-* [Maven docs](https://maven.apache.org/guides/index.html)  
-* [Spring Boot reference](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
-* [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/reference/jpa.html)
-* [Thymeleaf docs](https://www.thymeleaf.org/documentation.html)  
-* [Webpack concepts](https://webpack.js.org/concepts/)  
-* [npm docs](https://docs.npmjs.com/)  
-* [Bootstrap docs](https://getbootstrap.com/docs/5.3/getting-started/introduction/)  
-* [Learn Spring Boot with Thymeleaf](https://www.wimdeblauwe.com/books/taming-thymeleaf/)  
+## Lecturas adicionales
+
+Enlaces útiles para el proyecto:
+
+- [Maven docs](https://maven.apache.org/guides/index.html)
+- [Referencia de Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+- [Referencia de Spring Data JPA](https://docs.spring.io/spring-data/jpa/reference/jpa.html)
+- [Documentación de Thymeleaf](https://www.thymeleaf.org/documentation.html)
+- [Conceptos de Webpack](https://webpack.js.org/concepts/)
+- [Documentación de npm](https://docs.npmjs.com/)
+- [Documentación de Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+- [Aprender Spring Boot con Thymeleaf](https://www.wimdeblauwe.com/books/taming-thymeleaf/)
+
+---
+
+Este README incluye las instrucciones generales sobre cómo configurar, desarrollar, y desplegar el proyecto. Si necesitas agregar más información específica del proyecto, házmelo saber.
