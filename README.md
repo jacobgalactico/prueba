@@ -2,7 +2,7 @@ Proyecto realizado por: Patrik Paul Sirbu, Jacob Altenburger Villar y Pedro Alon
 -------------------
 Fecha de entrega: 29/09/2024
 -------------------
-Link al repositorio: 
+Link al repositorio: https://github.com/jacobgalactico/prueba.git
 # CasoPráctico
 
 Esta aplicación fue creada con Bootify.io - consejos sobre cómo trabajar con el código [pueden encontrarse aquí](https://bootify.io/next-steps/).
