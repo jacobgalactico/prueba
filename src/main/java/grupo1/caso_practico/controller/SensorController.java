@@ -1,5 +1,6 @@
 package grupo1.caso_practico.controller;
 
+import grupo1.caso_practico.domain.Sensor;
 import grupo1.caso_practico.model.SensorDTO;
 import grupo1.caso_practico.model.SensorStatus;
 import grupo1.caso_practico.model.SensorType;
@@ -16,16 +17,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.concurrent.CompletableFuture;
+import grupo1.caso_practico.repos.SensorRepository;
+import grupo1.caso_practico.repos.SensorRepository;
 @Controller
 @RequestMapping("/sensors")
-public class SensorController {
+public class SensorController{
 
     private final SensorService sensorService;
+    private final SensorRepository sensorRepository;
 
-    public SensorController(final SensorService sensorService) {
+    public SensorController(final SensorService sensorService, final SensorRepository sensorRepository) {
         this.sensorService = sensorService;
+        this.sensorRepository = sensorRepository;
     }
 
     @ModelAttribute
@@ -47,7 +53,7 @@ public class SensorController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("sensor") @Valid final SensorDTO sensorDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                      final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "sensor/add";
         }
@@ -64,8 +70,8 @@ public class SensorController {
 
     @PostMapping("/edit/{id}")
     public String edit(@PathVariable(name = "id") final Long id,
-            @ModelAttribute("sensor") @Valid final SensorDTO sensorDTO,
-            final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
+                       @ModelAttribute("sensor") @Valid final SensorDTO sensorDTO,
+                       final BindingResult bindingResult, final RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "sensor/edit";
         }
@@ -76,7 +82,7 @@ public class SensorController {
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable(name = "id") final Long id,
-            final RedirectAttributes redirectAttributes) {
+                         final RedirectAttributes redirectAttributes) {
         final ReferencedWarning referencedWarning = sensorService.getReferencedWarning(id);
         if (referencedWarning != null) {
             redirectAttributes.addFlashAttribute(WebUtils.MSG_ERROR,
@@ -88,4 +94,18 @@ public class SensorController {
         return "redirect:/sensors";
     }
 
+    // Nuevo método para procesar los datos del sensor de manera asíncrona
+    @GetMapping("/process/{id}")
+    public String processSensor(@PathVariable(name = "id") final Long id, final RedirectAttributes redirectAttributes) {
+        // Busca el sensor por su ID
+        Sensor sensor = sensorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Sensor no encontrado"));
+
+        // Inicia el procesamiento asíncrono
+        CompletableFuture<Void> future = sensorService.processSensorData(sensor);
+
+        // Añade un mensaje de éxito
+        redirectAttributes.addFlashAttribute(WebUtils.MSG_SUCCESS, "Procesamiento del sensor " + sensor.getName() + " iniciado.");
+        return "redirect:/sensors"; // Redirige de nuevo a la lista de sensores
+    }
 }
