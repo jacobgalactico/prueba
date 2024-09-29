@@ -81,6 +81,7 @@ public class SensorService {
         sensorDTO.setLocation(sensor.getLocation());
         sensorDTO.setStatus(sensor.getStatus());
         return sensorDTO;
+
     }
 
     private Sensor mapToEntity(final SensorDTO sensorDTO, final Sensor sensor) {
